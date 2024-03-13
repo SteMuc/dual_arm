@@ -2,8 +2,8 @@
 <launch>
     <!-- Args -->
     <arg name="robot_model_name" default="combined_panda_arm" />
-    <arg name="arm_id_1" default="right_arm" />
-    <arg name="arm_id_2" default="left_arm" />
+    <arg name="arm_id_1" default="panda_1" />
+    <arg name="arm_id_2" default="panda_2" />
     <arg name="use_gripper" default="false" />
     <arg name="world" default="worlds/empty.world" doc="Filename to a SDF World for gazebo to use" />
     <arg name="gazebo" default="true" />
@@ -45,6 +45,9 @@
     <!-- Load ROS Controllers params from YAML-->
     <rosparam file="$(find dual_arm_control)/config/joint_state_controller.yaml" subst_value="true"
         command="load" />
+    <!-- <arg name="hw_config_file" default="$(find franka_control)/config/franka_combined_control_node.yaml" command="load" /> -->
+
+
 
     <!-- spawns the controller after the robot was put into its initial joint pose -->
     <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner"
@@ -56,9 +59,10 @@
     <rosparam file="$(find dual_arm_control)/config/trajectory_controller.yaml" subst_value="true"
         command="load" />
 
-    <node name="arms_trajectory_controller_spawner" pkg="controller_manager" type="spawner"
+    <node name="arms_force_control" pkg="controller_manager" type="spawner"
         respawn="false" output="screen"
-        args="$(arg arm_id_1)_trajectory_controller $(arg arm_id_2)_trajectory_controller" />
+        args="force_panda1 force_panda2" />
+
 
     <node pkg="rviz" type="rviz" output="screen" name="rviz"
         args="-d $(find dual_arm_viz)/rviz/model.rviz" if="$(arg rviz)" />

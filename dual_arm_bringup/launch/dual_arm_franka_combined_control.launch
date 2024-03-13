@@ -4,7 +4,8 @@
   <arg name="use_rviz" default="true" />
 
   <!-- The path to a robot description (xacro) file to control -->
-  <arg name="robot" default="$(find franka_description)/robots/dual_panda/dual_panda_example.urdf.xacro" />
+  <!-- <arg name="robot" default="$(find franka_description)/robots/dual_panda/dual_panda_example.urdf.xacro" /> -->
+  <arg name="robot" default="$(find dual_arm_description)/robot/real_panda_multiple_arms.urdf.xacro" />
 
   <!-- Additional XACRO args. Be sure to escape colons and equal signs
        with backslashes, because XACRO use same syntax as roslaunch:
@@ -26,10 +27,11 @@
   <arg name="controllers_file" default="$(find franka_control)/config/default_combined_controllers.yaml" />
 
   <!-- The space separated list of controllers to start in this launch files. The controllers should be known from the controllers_file -->
-  <arg name="controllers_to_start" default="panda_1_state_controller panda_2_state_controller"/>
+  <arg name="controllers_to_start" default="panda_1_state_controller panda_2_state_controller  force_panda1 force_panda2"/>
 
   <!-- The list of the joint_states topics of all combined robots to fuse to a complete topic -->
-  <arg name="joint_states_source_list" default="[panda_1_state_controller/joint_states, panda_2_state_controller/joint_states, panda_1/franka_gripper/joint_states, panda_2/franka_gripper/joint_states]"/>
+  <!-- <arg name="joint_states_source_list" default="[panda_1_state_controller/joint_states, panda_2_state_controller/joint_states, force_panda1/joint_states, force_panda2/joint_states panda_1/franka_gripper/joint_states, panda_2/franka_gripper/joint_states]"/> -->
+  <arg name="joint_states_source_list" default="[panda_1_state_controller/joint_states, panda_2_state_controller/joint_states]"/>
 
   <node name="$(arg robot_id)" pkg="franka_control" type="franka_combined_control_node" output="screen" required="true">
     <rosparam command="load" file="$(arg hw_config_file)" />
@@ -49,6 +51,8 @@
       <rosparam param="source_list" subst_value="true">$(arg joint_states_source_list)</rosparam>
       <param name="rate" value="30"/>
     </node>
+
+    
   </group>
 
   <!-- Launch RVIZ -->

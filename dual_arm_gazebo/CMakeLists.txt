@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros_control
   franka_gazebo
   franka_description
+  panda_controllers
 )
 
 ## System dependencies are found with CMake's conventions

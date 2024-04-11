@@ -26,9 +26,9 @@
   </link>
 
   <!-- right arm with gripper -->
-  <xacro:franka_arm arm_id="$(arg arm_id_1)" connected_to="base"  xyz="0 -0.5 1" safety_distance="0.03" joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"/>
+  <xacro:franka_arm arm_id="$(arg arm_id_1)" connected_to="base"  xyz="0 -0.65 1" safety_distance="0.03" joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"/>
 
   <!-- left arm with gripper -->
-  <xacro:franka_arm arm_id="$(arg arm_id_2)" connected_to="base"  xyz="0 0.5 1" safety_distance="0.03" joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"/>
+  <xacro:franka_arm arm_id="$(arg arm_id_2)" connected_to="base"  xyz="0 0.65 1" safety_distance="0.03" joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"/>
 
 </robot>
